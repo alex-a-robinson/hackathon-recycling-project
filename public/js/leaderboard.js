@@ -21,7 +21,7 @@ function get_leaderboard() {
     leaders = snap.val();
     // console.log(leaders);
     // console.log(create_table(leaders, number_of_records));
-    $('body').html(create_table(leaders, number_of_records));
+    $('#tablelocation').html(create_table(leaders, number_of_records));
   });
 
 }
