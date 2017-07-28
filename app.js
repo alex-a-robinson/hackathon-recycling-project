@@ -1,12 +1,11 @@
-'use strict';
+// 'use strict';
+//
+// const config = require('./etc/config.js');
 
-const config = require('./etc/config.js');
+const express = require('express')
+const app = express()
 
-// Modules imports
-const express = require('express');
-
-var bodyParser = require('body-parser');
-
+app.use(express.static('public'));
 
 // // Firebase Setup
 // const admin = require('firebase-admin');
@@ -15,26 +14,6 @@ var bodyParser = require('body-parser');
 //   databaseURL: `https://${config.firebase.service_account.project_id}.firebaseio.com`
 // });
 
-// ExpressJS setup
-const app = express();
-
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-}));
-
-
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
-
-app.use(express.static('public'));
-
-
-// app.get('*', (req, res) => {
-//   error_404(res);
-// })
-
-// Start the server
-var server = app.listen(6000, function () {
-  console.log('Serving on 6000');
-});
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
