@@ -9,7 +9,6 @@ $(document).ready(function() {
       table = $('#history').DataTable();
       firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
     } else {
-      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
       window.user = null;
     }
   });
@@ -40,4 +39,14 @@ function add_new_item() {
   }
 
   firebase.database().ref(`/${window.user.uid}/history`).push(data);
+  firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
+    if (snap.val() == null) {
+      firebase.database().ref(`/${window.user.uid}/item_count`).push(0);
+    }
+    firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - 1);
+  });
+}
+
+function sign_in() {
+  firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
 }
