@@ -19,7 +19,7 @@ function add_history(snap) {
   if (!snap.val()) return;
   var value = snap.val();
 
-  table.row.add([value.item_name, value.timestamp]).draw();
+  table.row.add([value.item_name, new Date(value.timestamp).toISOString().slice(0, 16).replace('T', ' ')]).draw();
 }
 
 function add_new_item() {
@@ -34,9 +34,12 @@ function add_new_item() {
 
   $('#new_item').val('');
 
+  var location = getLocation()
+
   var data = {
     item_name: item_name,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
+    timestamp: firebase.database.ServerValue.TIMESTAMP,
+    location: location
   }
 
   firebase.database().ref(`/${window.user.uid}/history`).push(data);
@@ -51,3 +54,5 @@ function add_new_item() {
 function sign_in() {
   firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
 }
+
+
