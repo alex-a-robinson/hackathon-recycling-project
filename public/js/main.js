@@ -34,7 +34,9 @@ function add_new_item() {
 
   $('#new_item').val('');
 
-  var location = getLocation()
+}
+
+var location = getLocation()
 
 function add_item_to_db(item_name) {
   var data = {
