@@ -4,7 +4,7 @@ $(document).ready(function() {
     console.log(user);
     if (user) {
       window.user = user
-      //firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
+      firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
     } else {
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
       window.user = null;
@@ -13,6 +13,8 @@ $(document).ready(function() {
 });
 
 function add_history(snap) {
+  if (!snap.val()) return;
+
   console.log(snap.val());
 }
 
