@@ -21,43 +21,37 @@ function add_history(snap) {
 
   var date = new Date(value.timestamp).toISOString().slice(0, 16).replace('T', ' ')
 
-  table.row.add([value.item_name, date, value.quantity]).draw();
+  table.row.add([value.item_name, date, value.quantity || 0, value.location || '']).draw();
 }
 
-function add_new_item() {
-  var item_name = $('#new_item').val();
-  var quantity = $('#quantity').val();
-  if (!item_name) return;
-  if(!quantity) return;
-
+function add_item_to_db(item_name) {
   if (!window.user) {
     console.warn('no user!')
     return;
   }
+  var item_name = $('#new_item').val();
+  var quantity = $('#quantity').val();
 
-  $('#new_item').val('');
-  $('#quantity').val('');
+  getLocation(function(location) {
+    if (!item_name) return;
+    if(!quantity) return;
 
-
-  var location = getLocation()
-
-function add_item_to_db(item_name) {
-  var data = {
-    item_name: item_name,
-    quantity: quantity,
-    timestamp: firebase.database.ServerValue.TIMESTAMP,
-    location: location
-  }
-  firebase.database().ref(`/${window.user.uid}/history`).push(data);
-  firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
-    if (snap.val() == null) {
-      firebase.database().ref(`/${window.user.uid}/item_count`).push(-Math.abs(quantity));
+    var data = {
+      item_name: item_name,
+      quantity: quantity,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      location: location
     }
-    firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - quantity);
-  });
-
-
-
+    firebase.database().ref(`/${window.user.uid}/history`).push(data);
+    firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
+      if (snap.val() == null) {
+        firebase.database().ref(`/${window.user.uid}/item_count`).push(-Math.abs(quantity));
+      }
+      firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - quantity);
+    });
+    $('#new_item').val('');
+    $('#quantity').val('');
+  })
 }
 
 function change_status() {
@@ -72,8 +66,6 @@ function change_status() {
     firebase.database().ref(`/${window.user.uid}/status`).set(status);
   });
 }
-
-
 
 function sign_in() {
   firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
