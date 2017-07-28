@@ -2,8 +2,8 @@
 //
 // const config = require('./etc/config.js');
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 app.use(express.static('public'));
 
