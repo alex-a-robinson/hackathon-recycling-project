@@ -36,11 +36,6 @@ function add_item_to_db(item_name) {
     if (!item_name) return;
     if(!quantity) return;
 
-<<<<<<< HEAD
-}
-
-var location = getLocation()
-=======
     var data = {
       item_name: item_name,
       quantity: quantity,
@@ -58,7 +53,6 @@ var location = getLocation()
     $('#quantity').val('');
   })
 }
->>>>>>> 4b17ed750e8b833b2d129081a9effe3c869d93f5
 
 function change_status() {
   var status = $('#status').is(':checked')
