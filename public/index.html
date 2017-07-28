@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" type="text/css" href="/css/main.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -23,7 +20,17 @@
         </div>
         <button type='button' class='btn btn-default' onclick="add_new_item()">Add new item</button>
       </div>
+
       <hr>
+
+      <table id='history' class='table'>
+  	        <thead>
+  	            <tr>
+  	                <th>Item</th>
+  					<th>Time</th>
+  	            </tr>
+  	        </thead>
+  		</table>
     </div>
     <br>
     <br>
