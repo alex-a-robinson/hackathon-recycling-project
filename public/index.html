@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" type="text/css" href="/css/main.css">
 
+
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<<<<<<< HEAD
   <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
   <script src="/js/main.js"></script>
+=======
+  <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" integrity="" crossorigin="anonymous"></script>
+
+  <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+>>>>>>> ae4d8efc84382c22c6f9d0d19f3bcec48d194124
   <title>Main</title>
 </head>
 <body>
   <main>
     <div class='container'>
+      <h3>Manual Entry</h3>
       <div class='form-inline'>
         <div class='form-group'>
             <input id="new_item" type='text' placeholder="item to recycle" class="form-control"></input>
+            <input id="quantity" type='number' placeholder="quantity" class="form-control"></input>
         </div>
-        <button type='button' class='btn btn-default' onclick="add_new_item()">Add new item</button>
+        <button type='button' class='btn btn-default' onclick="add_item_to_db()">Add new item</button>
       </div>
+
       <hr>
+
+      <table id='history' class='table'>
+  	        <thead>
+  	            <tr>
+  	                <th>Item</th>
+  					        <th>Time</th>
+                    <th>Quantity</th>
+                    <th>Location</th>
+  	            </tr>
+  	        </thead>
+  		</table>
+
+      <hr>
+      <label>
+        <input id="status" type="checkbox" onchange="change_status()" data-toggle="toggle">
+        Recycler
+      </label>
     </div>
     <br>
     <br>
@@ -52,6 +79,8 @@
     };
     firebase.initializeApp(config);
   </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEIZqIEqrfWAHPKttG4_iuLDS-ES1zgO8&callback=initMap"></script>
+  <script src="/js/location.js"></script>
   <script src="/js/main.js"></script>
 </body>
 </html>
