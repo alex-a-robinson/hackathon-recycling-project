@@ -19,13 +19,18 @@ function add_history(snap) {
   if (!snap.val()) return;
   var value = snap.val();
 
-  table.row.add([value.item_name, value.timestamp]).draw();
+
+
+  var date = new Date(value.timestamp).toISOString().slice(0, 16).replace('T', ' ')
+
+  table.row.add([value.item_name, date, value.quantity]).draw();
 }
 
 function add_new_item() {
   var item_name = $('#new_item').val();
-
+  var quantity = $('#quantity').val();
   if (!item_name) return;
+  if(!quantity) return;
 
   if (!window.user) {
     console.warn('no user!')
@@ -33,20 +38,41 @@ function add_new_item() {
   }
 
   $('#new_item').val('');
+  $('#quantity').val('');
+
 
   var data = {
     item_name: item_name,
+    quantity: quantity,
     timestamp: firebase.database.ServerValue.TIMESTAMP
   }
-
+  console.log(quantity)
   firebase.database().ref(`/${window.user.uid}/history`).push(data);
   firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
     if (snap.val() == null) {
-      firebase.database().ref(`/${window.user.uid}/item_count`).push(0);
+      firebase.database().ref(`/${window.user.uid}/item_count`).push(-Math.abs(quantity));
     }
-    firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - 1);
+    firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - quantity);
+  });
+
+
+
+}
+
+function change_status() {
+  var status = $('#status').is(':checked')
+
+  if (!window.user) {
+    console.warn('no user!')
+    return;
+  }
+
+  firebase.database().ref(`/${window.user.uid}/status`).once("value").then((snap) => {
+    firebase.database().ref(`/${window.user.uid}/status`).set(status);
   });
 }
+
+
 
 function sign_in() {
   firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
