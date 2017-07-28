@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 function get_leaderboard() {
 
+
   var number_of_records = 10;
   firebase.database().ref("/").orderByChild("item_count").limitToLast(number_of_records).once("value").then(snap => {
     leaders = snap.val();

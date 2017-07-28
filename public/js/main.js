@@ -36,6 +36,7 @@ function add_new_item() {
 
   var location = getLocation()
 
+function add_item_to_db(item_name) {
   var data = {
     item_name: item_name,
     timestamp: firebase.database.ServerValue.TIMESTAMP,
@@ -55,4 +56,17 @@ function sign_in() {
   firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
 }
 
+function add_new_item() {
+  var item_name = $('#new_item').val();
 
+  if (!item_name) return;
+
+  if (!window.user) {
+    console.warn('no user!')
+    return;
+  }
+
+  $('#new_item').val('');
+
+  add_item_to_db(item_name);
+}
