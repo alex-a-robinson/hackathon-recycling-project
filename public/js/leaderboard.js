@@ -30,7 +30,7 @@ function get_leaderboard() {
     return;
   }
   // Find all dinosaurs whose names come before Pterodactyl lexicographically.
-  number_of_records = 2;
+  number_of_records = 10;
   var ref = firebase.database().ref("/").orderByChild("item_count").limitToLast(number_of_records).once("value").then(snap => {
     leaders = snap.val();
     console.log(leaders);
