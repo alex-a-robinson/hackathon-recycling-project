@@ -19,38 +19,57 @@ function add_history(snap) {
   if (!snap.val()) return;
   var value = snap.val();
 
-  table.row.add([value.item_name, new Date(value.timestamp).toISOString().slice(0, 16).replace('T', ' ')]).draw();
+  var date = new Date(value.timestamp).toISOString().slice(0, 16).replace('T', ' ')
+
+  table.row.add([value.item_name, date, value.quantity || 0, value.location || '']).draw();
 }
 
-function add_new_item() {
+function add_item_to_db(item_name) {
+  if (!window.user) {
+    console.warn('no user!')
+    return;
+  }
   var item_name = $('#new_item').val();
+  var quantity = $('#quantity').val();
 
-  if (!item_name) return;
+  getLocation(function(location) {
+    if (!item_name) return;
+    if(!quantity) return;
+
+<<<<<<< HEAD
+}
+
+var location = getLocation()
+=======
+    var data = {
+      item_name: item_name,
+      quantity: quantity,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      location: location
+    }
+    firebase.database().ref(`/${window.user.uid}/history`).push(data);
+    firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
+      if (snap.val() == null) {
+        firebase.database().ref(`/${window.user.uid}/item_count`).push(-Math.abs(quantity));
+      }
+      firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - quantity);
+    });
+    $('#new_item').val('');
+    $('#quantity').val('');
+  })
+}
+>>>>>>> 4b17ed750e8b833b2d129081a9effe3c869d93f5
+
+function change_status() {
+  var status = $('#status').is(':checked')
 
   if (!window.user) {
     console.warn('no user!')
     return;
   }
 
-  $('#new_item').val('');
-
-}
-
-var location = getLocation()
-
-function add_item_to_db(item_name) {
-  var data = {
-    item_name: item_name,
-    timestamp: firebase.database.ServerValue.TIMESTAMP,
-    location: location
-  }
-
-  firebase.database().ref(`/${window.user.uid}/history`).push(data);
-  firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
-    if (snap.val() == null) {
-      firebase.database().ref(`/${window.user.uid}/item_count`).push(0);
-    }
-    firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - 1);
+  firebase.database().ref(`/${window.user.uid}/status`).once("value").then((snap) => {
+    firebase.database().ref(`/${window.user.uid}/status`).set(status);
   });
 }
 
