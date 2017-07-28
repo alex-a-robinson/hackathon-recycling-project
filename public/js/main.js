@@ -1,16 +1,13 @@
+var table;
+
 $(document).ready(function() {
 
   firebase.auth().onAuthStateChanged(user => {
     console.log(user);
     if (user) {
       window.user = user
-      // firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
-      // firebase.database().ref(`/${window.user.uid}/name`).once("value").then((snap) => {
-      //   if (snap.val() == null) {
-      //     firebase.database().ref(`/${window.user.uid}/name`).set(user.displayName);
-      //   }
-      // });
-      //firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
+      table = $('#history').DataTable();
+      firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
     } else {
       window.user = null;
     }
@@ -19,8 +16,9 @@ $(document).ready(function() {
 
 function add_history(snap) {
   if (!snap.val()) return;
+  var value = snap.val();
 
-  console.log(snap.val());
+  table.row.add([value.item_name, value.timestamp]).draw();
 }
 
 function add_new_item() {
