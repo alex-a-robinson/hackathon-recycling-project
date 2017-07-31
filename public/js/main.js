@@ -88,3 +88,49 @@ function add_new_item() {
 
   add_item_to_db(item_name);
 }
+
+function open_desktop_webcam(){
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $('#photoWindow').html('<input id="myFileInput" type="file" accept="image/*;capture=camera">');
+
+    var myInput = document.getElementById('myFileInput');
+
+    function sendPic() {
+        var file = myInput.files[0];
+        reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (evt) {
+            send(evt.target.result.split(',')[1]);
+        }
+
+        // Send file here either by adding it to a `FormData` object
+        // and sending that via XHR, or by simply passing the file into
+        // the `send` method of an XHR instance.
+    }
+
+    myInput.addEventListener('change', sendPic, false);
+  } else {
+    $('#photoWindow').html('<video id="video" max-width="100%" height="480" style="display:inline-block" autoplay></video> <button id="snap">Snap Photo</button> <canvas id="canvas" max-width="640" height="480"></canvas>');
+    // Grab elements, create settings, etc.
+    var video = document.getElementById('video');
+
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        });
+    }
+    // Elements for taking the snapshot
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+
+    // Trigger photo take
+    document.getElementById("snap").addEventListener("click", function() {
+      context.drawImage(video, 0, 0, 640, 480);
+      send(canvas.toDataURL().split(',')[1]);
+    });
+  }
+}

@@ -6,14 +6,14 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="/js/photo.js"></script>
 <script type="text/javascript">
-	
+
 	$(document).ready(function() {
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 			$('body').html('<input id="myFileInput" type="file" accept="image/*;capture=camera">');
 
 			var myInput = document.getElementById('myFileInput');
 
-			function sendPic() {	
+			function sendPic() {
 			    var file = myInput.files[0];
 	  			reader = new FileReader();
 	  			reader.readAsDataURL(file);
@@ -21,8 +21,8 @@
 	        		send(evt.target.result.split(',')[1]);
 	    		}
 
-			    // Send file here either by adding it to a `FormData` object 
-			    // and sending that via XHR, or by simply passing the file into 
+			    // Send file here either by adding it to a `FormData` object
+			    // and sending that via XHR, or by simply passing the file into
 			    // the `send` method of an XHR instance.
 			}
 
@@ -69,11 +69,10 @@
     firebase.initializeApp(config);
   </script>
 	<!--
-		Ideally these elements aren't created until it's confirmed that the 
-		client supports video/camera, but for the sake of illustrating the 
+		Ideally these elements aren't created until it's confirmed that the
+		client supports video/camera, but for the sake of illustrating the
 		elements involved, they are created with markup (not JavaScript)
 	-->
 
 </body>
 </html>
-
