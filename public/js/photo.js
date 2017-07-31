@@ -40,7 +40,7 @@ function send(b64EncodingImage) {
 	      		}
 
 	      	}
-	      	setTimeout(function() {alert(results_summary);}, 100);
+	      	setTimeout(function() {alert("Your points have been updated!");}, 100);
 	    	console.log(results_summary);
 	      	console.log(found);
 	    },

@@ -33,8 +33,8 @@ function add_item_to_db(item_name, quantity=1) {
     return;
   }
 
-  getLocation(function(location) {
-    console.log('in location')
+
+function getLocation(function(location, latlng) {
     if (!item_name) return;
     if(!quantity) return;
 
@@ -42,7 +42,8 @@ function add_item_to_db(item_name, quantity=1) {
       item_name: item_name,
       quantity: quantity,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
-      location: location
+      location: location,
+      latlng: latlng
     }
     firebase.database().ref(`/${window.user.uid}/history`).push(data);
     firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
@@ -53,7 +54,6 @@ function add_item_to_db(item_name, quantity=1) {
     });
     $('#new_item').val('');
     $('#quantity').val('');
-  })
 }
 
 function add_manually(  ){
