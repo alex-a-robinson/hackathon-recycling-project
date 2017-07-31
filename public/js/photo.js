@@ -23,7 +23,7 @@ function send(b64EncodingImage) {
 	    },
 
 	    success: function(data, textStatus, jqXHR) {
-	    	var recycable_items = ["newspapers", "paper", "magazines", "glass", "glass bottles", "jar", "glass jar", "plastic bottle", "bottle", "aluminium", "steel cans", "cans", "can", "aluminium cans", "plastic bags", "plastic wrap", "wrap", "shredded paper", "paper", "clothes", "toys", "furniture", "sharps"]
+	    var recycable_items = ["newspapers", "paper", "magazines", "glass", "glass bottles", "jar", "glass jar", "plastic bottle", "bottle", "aluminium", "steel cans", "cans", "can", "aluminium cans", "plastic bags", "plastic wrap", "wrap", "shredded paper", "paper", "clothes", "toys", "furniture", "sharps", "cup"]
 			var results_summary = [];
 			var results = data.responses[0].labelAnnotations;
 			var found = false;
@@ -33,7 +33,8 @@ function send(b64EncodingImage) {
 	      		for (var j = 0; !found && j <= recycable_items.length; ++j) {
 	      			var robj = recycable_items[j];
 	      			if (robj == obj) {
-	      				add_item_to_db(robj);
+								console.log(robj)
+	      				add_item_to_db(robj, 1, true);
 	      				// found = true;
 	      			}
 	      		}

@@ -6,7 +6,7 @@ $(document).ready(function() {
     console.log(user);
     if (user) {
       window.user = user
-      table = $('#history').DataTable({'searching':false, 'paging':false});
+      table = $('#history').DataTable({'searching':false, 'paging':false, "bDestroy": true});
       firebase.database().ref(`/${user.uid}/history`).off()
       firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
     } else {
@@ -27,15 +27,14 @@ function add_history(snap) {
   table.row.add([value.item_name, date, value.quantity || 0, value.location || '']).draw();
 }
 
-function add_item_to_db(item_name) {
+function add_item_to_db(item_name, quantity=1) {
   if (!window.user) {
     console.warn('no user!')
     return;
   }
-  var item_name = $('#new_item').val();
-  var quantity = $('#quantity').val();
 
   getLocation(function(location) {
+    console.log('in location')
     if (!item_name) return;
     if(!quantity) return;
 
@@ -55,6 +54,44 @@ function add_item_to_db(item_name) {
     $('#new_item').val('');
     $('#quantity').val('');
   })
+}
+
+function add_manually(  ){
+  if (!window.user) {
+    console.warn('no user!')
+    return;
+  }
+
+  var item_name = $("#new_item").val()
+  var quantity = $("#quantity").val()
+  if( !quantity ){
+    quantity = 1
+
+  }
+
+  getLocation(function(location) {
+    console.log('in location')
+    if (!item_name) return;
+    if(!quantity) return;
+
+    var data = {
+      item_name: item_name,
+      quantity: quantity,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      location: location
+    }
+    firebase.database().ref(`/${window.user.uid}/history`).push(data);
+    firebase.database().ref(`/${window.user.uid}/item_count`).once("value").then((snap) => {
+      if (snap.val() == null) {
+        firebase.database().ref(`/${window.user.uid}/item_count`).push(-Math.abs(quantity));
+      }
+      firebase.database().ref(`/${window.user.uid}/item_count`).set(snap.val() - quantity);
+    });
+    $('#new_item').val('');
+    $('#quantity').val('');
+  })
+
+
 }
 
 function change_status() {
@@ -110,7 +147,7 @@ function open_desktop_webcam(){
 
     myInput.addEventListener('change', sendPic, false);
   } else {
-    $('#photoWindow').html('<video id="video" width="550px" max-width="100%" height="480" style="display:inline-block" autoplay></video> <canvas style="display: none" id="canvas" max-width="640" height="480"></canvas>');
+    $('#photoWindow').html('<video id="video" width="550px" height="480" margin="0 auto" autoplay></video> <canvas style="display: none" id="canvas" max-width="640" height="480"></canvas>');
     // Grab elements, create settings, etc.
     var video = document.getElementById('video');
 
