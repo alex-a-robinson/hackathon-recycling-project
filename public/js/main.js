@@ -110,7 +110,7 @@ function open_desktop_webcam(){
 
     myInput.addEventListener('change', sendPic, false);
   } else {
-    $('#photoWindow').html('<video id="video" max-width="100%" height="480" style="display:inline-block" autoplay></video> <button id="snap">Snap Photo</button> <canvas id="canvas" max-width="640" height="480"></canvas>');
+    $('#photoWindow').html('<video id="video" width="550px" max-width="100%" height="480" style="display:inline-block" autoplay></video> <canvas style="display: none" id="canvas" max-width="640" height="480"></canvas>');
     // Grab elements, create settings, etc.
     var video = document.getElementById('video');
 
