@@ -6,7 +6,7 @@ $(document).ready(function() {
     console.log(user);
     if (user) {
       window.user = user
-      table = $('#history').DataTable();
+      table = $('#history').DataTable({'searching':false, 'paging':false});
       firebase.database().ref(`/${user.uid}/history`).off()
       firebase.database().ref(`/${user.uid}/history`).on('child_added', add_history);
     } else {
