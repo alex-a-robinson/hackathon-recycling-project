@@ -3,9 +3,9 @@ JPM Code for good intern hackathon. Built over the course of 2 days, July 2017.
 
 Built a social platform for tracking and gamifying recycling.
   
-## Demo Site
+## Demo Site
 [irecycle](http://irecycle.app.arrx.uk)
-  
+
 ## Features
 - Authentication with google authentication
 - Geotagged recycling
@@ -13,7 +13,7 @@ Built a social platform for tracking and gamifying recycling.
 - Leaderboard
 - Image recognition input of litter (can use webcam to take a photo of litter and we can detect what it is)
   
-## Tools
+## Tools
 - Firebase
 - node
 - express
@@ -23,10 +23,10 @@ Built a social platform for tracking and gamifying recycling.
 - Bootstrap
 
 ## Screenshots
-![Main Page](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen Shot 2017-07-31 at 13.49.03.png)  
-![Leader Page](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen Shot 2017-07-31 at 13.49.45.png)  
-![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen Shot 2017-07-31 at 14.20.24.png)  
-![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen Shot 2017-07-31 at 14.20.45.png)  
+![Main Page](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2013.49.03.png)  
+![Leader Page](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2013.49.45.png)  
+![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2014.20.24.png)  
+![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2014.20.45.png)  
 
-![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/example full.mov)  
-![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/example location.mov)  
+![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/example%20full.mov)  
+![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/example%20location.mov)  
