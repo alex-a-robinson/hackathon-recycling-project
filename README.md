@@ -24,5 +24,8 @@ Built a social platform for tracking and gamifying recycling.
 
 ## Screenshots
 ![Main Page](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2013.49.03.png)  
+
 ![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2014.20.24.png)  
+
+
 ![](https://github.com/begly/hackathon-recycling-project/blob/master/screenshots/Screen%20Shot%202017-07-31%20at%2014.20.45.png)  
